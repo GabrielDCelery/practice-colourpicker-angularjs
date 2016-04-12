@@ -7,6 +7,75 @@
 </head>
 <body>
 
+	<nav>
+		<ul class="navButtons">
+			<li id="getBasePalette">GET BASE COLOURS</li>
+			<li id="getExtendedPalette">GET EXTENDED COLOURS</li>
+			<li>ADD NEW COLOUR</li>
+			<li>DUPLICATE EXISTING COLOUR</li>
+		</ul>
+	</nav>
+
+	<main>
+		<ul>
+			<li class="monochromatic">
+				<div class="colourValueBox">
+					<div class="baseColourValues">
+						<p class="rgbaValue">120,0,0,1</p>
+						<p class="hexValue">#780000</p>
+					</div>
+				</div>
+				<div class="colourBox">
+					<div class="baseColour" style="background-color: rgba(120,0,0,1);"></div>
+				</div>
+				<div class="colourBox">
+					<div class="tintColour" style="background-color: rgba(110,0,0,1);"></div>
+					<div class="tintColour" style="background-color: rgba(120,0,0,1);"></div>
+					<div class="tintColour" style="background-color: rgba(160,0,0,1);"></div>
+					<div class="tintColour" style="background-color: rgba(200,0,0,1);"></div>	
+				</div>
+				<div class="colourValueBox">
+					<div class="tintColourValues">
+						<p class="rgbaValue">110,0,0,1</p>
+						<p class="hexValue">#6E0000</p>
+					</div>
+					<div class="tintColourValues">
+						<p class="rgbaValue">120,0,0,1</p>
+						<p class="hexValue">#780000</p>
+					</div>
+					<div class="tintColourValues">
+						<p class="rgbaValue">160,0,0,1</p>
+						<p class="hexValue">#960000</p>
+					</div>
+					<div class="tintColourValues">
+						<p class="rgbaValue">200,0,0,1</p>
+						<p class="hexValue">#C80000</p>
+					</div>
+				</div>
+			</li>	
+		</ul>
+	</main>
+
+	<footer>
+		<div class="colourAdjuster">
+			<p>R</p>
+			<input type="range" min="0" max="255"></input>
+		</div>
+		<div class="colourAdjuster">
+			<p>G</p>
+			<input type="range" min="0" max="255"></input>
+		</div>
+		<div class="colourAdjuster">
+			<p>B</p>
+			<input type="range" min="0" max="255"></input>
+		</div>
+		<div class="colourAdjuster">
+			<p>O</p>
+			<input type="range" min="0" max="1"></input>
+		</div>
+	</footer>
+
+
 	<script type="text/javascript" src="lib/angular/angular.min.js"></script>
 	<script type="text/javascript" src="js/app.min.js"></script>
 
