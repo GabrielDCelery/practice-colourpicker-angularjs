@@ -49,7 +49,9 @@ PaletteFactory.factory('PaletteFactory', [function(){
 	}
 
 	return {
-		createPalette: createPalette
+		createPalette: createPalette,
+		rgbToHex: rgbToHex,
+		tintCalculator: tintCalculator
 	}
 
 }])

@@ -21,21 +21,21 @@
 			<li class="monochromatic" ng-repeat="colour in palette">
 				<div class="colourValueBox">
 					<div class="baseColourValues">
-						<p class="rgbaValue">{{colour.rgb}}</p>
+						<p class="rgbaValue">{{colour.rgb[0]}}, {{colour.rgb[1]}}, {{colour.rgb[2]}}, {{colour.opacity}}</p>
 						<p class="hexValue">{{colour.hex}}</p>
 					</div>
 				</div>
-				<div class="colourBox">
-					<div class="baseColour" ng-style="{{createBackgroundStyle(colour.rgb)}}"></div>
+				<div class="colourBox" ng-click="setSliders(colour.rgb, colour.opacity, $index)">
+					<div class="baseColour" ng-style="{'background-color': 'rgba(' + colour.rgb[0] + ', ' + colour.rgb[1] + ',' + colour.rgb[2] + ',' + colour.opacity + ')'}"></div>
 				</div>
-				<div class="colourBox">
+				<div class="colourBox" ng-click="setSliders(colour.rgb, colour.opacity, $index)">
 					<div class="tintColours" ng-repeat="tint in colour.tints">
-						<div class="tintColour" ng-style="{{createBackgroundStyle(tint.rgb)}}"></div>
+						<div class="tintColour" ng-style="{'background-color': 'rgba(' + tint.rgb[0] + ', ' + tint.rgb[1] + ',' + tint.rgb[2] + ',' + colour.opacity + ')'}"></div>
 					</div>
 				</div>
 				<div class="colourValueBox">
 					<div class="tintColourValues" ng-repeat="tint in colour.tints">
-						<p class="rgbaValue">{{tint.rgb}}</p>
+						<p class="rgbaValue">{{tint.rgb[0]}}, {{tint.rgb[1]}}, {{tint.rgb[2]}}, {{colour.opacity}}</p>
 						<p class="hexValue">{{tint.hex}}</p>
 					</div>
 				</div>
@@ -46,25 +46,28 @@
 	<footer>
 		<div class="colourAdjuster">
 			<p>R</p>
-			<input type="range" min="0" max="255"></input>
+			<input type="range" min="0" max="255" ng-model="slider.rgb[0]" ng-change="modifyColour(slider.rgb)"></input>
+			<input type="textbox" ng-model="slider.rgb[0]" ng-change="modifyColour(slider.rgb)"></input>
 		</div>
 		<div class="colourAdjuster">
 			<p>G</p>
-			<input type="range" min="0" max="255"></input>
+			<input type="range" min="0" max="255" ng-model="slider.rgb[1]" ng-change="modifyColour(slider.rgb)"></input>
+			<input type="textbox" ng-model="slider.rgb[1]" ng-change="modifyColour(slider.rgb)"></input>
 		</div>
 		<div class="colourAdjuster">
 			<p>B</p>
-			<input type="range" min="0" max="255"></input>
+			<input type="range" min="0" max="255" ng-model="slider.rgb[2]" ng-change="modifyColour(slider.rgb)"></input>
+			<input type="textbox" ng-model="slider.rgb[2]" ng-change="modifyColour(slider.rgb)"></input>
 		</div>
 		<div class="colourAdjuster">
 			<p>O</p>
-			<input type="range" min="0" max="1"></input>
+			<input type="number" ng-model="slider.opacity" ng-change="modifyOpacity(slider.opacity)"></input>
 		</div>
 	</footer>
 
 
 	<script type="text/javascript" src="lib/angular/angular.min.js"></script>
-	<script type="text/javascript" src="js/app.js"></script>
+	<script type="text/javascript" src="js/app.min.js"></script>
 
 </body>
 </html>

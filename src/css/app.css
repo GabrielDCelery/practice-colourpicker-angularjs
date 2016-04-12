@@ -137,5 +137,9 @@ footer {
 
 .colourAdjuster p {
 	color: #fff;
-	padding-right: 10px;
+}
+
+.colourAdjuster input {
+	width: 100px;
+	margin: 0 10px;
 }
