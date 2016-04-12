@@ -1,9 +1,22 @@
 console.log('app is running...');
 
-var colourPickerApp = angular.module('ColourPickerApp', ['ApiFactory', 'PaletteFactory', 'PaletteCtrl']);
+var colourPickerApp = angular.module('ColourPickerApp', ['ApiFactory', 'PaletteFactory', 'ObjectManipulatorFactory', 'PaletteCtrl']);
+
+
+
 var PaletteCtrl = angular.module('PaletteCtrl', []);
 
-PaletteCtrl.controller('PaletteCtrl', ['$scope', 'ApiFactory', 'PaletteFactory', function($scope, ApiFactory, PaletteFactory){
+PaletteCtrl.controller('PaletteCtrl', [
+	'$scope', 
+	'ApiFactory', 
+	'PaletteFactory', 
+	'ObjectManipulatorFactory', 
+	function(
+		$scope, 
+		ApiFactory, 
+		PaletteFactory,
+		ObjectManipulatorFactory
+	){
 
 	console.log('palette controller is running...');
 
@@ -23,17 +36,6 @@ VARIABLES
 	var currentlySelected = 0;
 
 /************************************************************************
-FUNCTIONS
-************************************************************************/
-
-	function arrayStringToInteger(array){
-		for(var i = 0; i < array.length; i++){
-			array[i] = parseInt(array[i]);
-		}
-		return array;
-	}
-
-/************************************************************************
 COLOUR PALETTE MODIFIER FUNCTIONS
 ************************************************************************/
 
@@ -43,10 +45,11 @@ COLOUR PALETTE MODIFIER FUNCTIONS
 			rgb: [rgb[0], rgb[1], rgb[2]], 
 			opacity: opacity
 		}
+		$scope.palette = ObjectManipulatorFactory.setKeyToTrue($scope.palette, 'selected', currentlySelected);
 	}
 
 	function modifyColour(rgb){
-		arrayStringToInteger(rgb);
+		rgb = ObjectManipulatorFactory.arrayStringElementsToInteger(rgb);
 		$scope.palette[currentlySelected].hex = PaletteFactory.rgbToHex(rgb)
 		$scope.palette[currentlySelected].rgb = rgb;
 		var tintModifiers = $scope.jsonData[currentlySelected].tints;
@@ -65,6 +68,7 @@ COLOUR PALETTE MODIFIER FUNCTIONS
 		var newColourScheme = angular.copy($scope.palette[currentlySelected]);
 		$scope.palette.unshift(newColourScheme);
 		currentlySelected = 0;
+		$scope.palette = ObjectManipulatorFactory.setKeyToTrue($scope.palette, 'selected', currentlySelected);
 	}
 
 /************************************************************************
@@ -115,6 +119,35 @@ ApiFactory.factory('ApiFactory', ['$http', function($http){
 	}
 
 }])
+var ObjectManipulatorFactory = angular.module('ObjectManipulatorFactory', []);
+
+ObjectManipulatorFactory.factory('ObjectManipulatorFactory', [function(){
+
+	function setKeyToTrue(arrayOfObjects, propertyName, index){
+		for(var i = 0; i < arrayOfObjects.length; i++){
+			if(i == index) {
+				arrayOfObjects[i][propertyName] = true;
+			} else {
+				arrayOfObjects[i][propertyName] = false;
+			}
+		}
+		return arrayOfObjects;
+	}
+
+	function arrayStringElementsToInteger(array){
+		for(var i = 0; i < array.length; i++){
+			array[i] = parseInt(array[i]);
+		}
+		return array;
+	}
+
+
+	return {
+		setKeyToTrue: setKeyToTrue,
+		arrayStringElementsToInteger: arrayStringElementsToInteger
+	}
+
+}])
 var PaletteFactory = angular.module('PaletteFactory', []);
 
 PaletteFactory.factory('PaletteFactory', [function(){
@@ -153,6 +186,7 @@ PaletteFactory.factory('PaletteFactory', [function(){
 			paletteElement.hex = rgbToHex(arrayOfPalette[i].baseColour);
 			paletteElement.opacity = 1;
 			paletteElement.tints = [];
+			paletteElement.selected = false;
 			for(var j = 0; j < arrayOfPalette[i].tints.length; j++){
 				var tint = {};
 				tint.rgb = tintCalculator(arrayOfPalette[i].baseColour, arrayOfPalette[i].tints[j]);

@@ -21,8 +21,9 @@
 			<li class="monochromatic" ng-repeat="colour in palette">
 				<div class="colourValueBox">
 					<div class="baseColourValues">
-						<p class="rgbaValue">{{colour.rgb[0]}}, {{colour.rgb[1]}}, {{colour.rgb[2]}}, {{colour.opacity}}</p>
-						<p class="hexValue">{{colour.hex}}</p>
+						<p>{{colour.rgb[0]}}, {{colour.rgb[1]}}, {{colour.rgb[2]}}, {{colour.opacity}}</p>
+						<p class="selected" ng-if="colour.selected">SELECTED</p>
+						<p>{{colour.hex}}</p>
 					</div>
 				</div>
 				<div class="colourBox" ng-click="setSliders(colour.rgb, colour.opacity, $index)">
@@ -35,8 +36,8 @@
 				</div>
 				<div class="colourValueBox">
 					<div class="tintColourValues" ng-repeat="tint in colour.tints">
-						<p class="rgbaValue">{{tint.rgb[0]}}, {{tint.rgb[1]}}, {{tint.rgb[2]}}, {{colour.opacity}}</p>
-						<p class="hexValue">{{tint.hex}}</p>
+						<p>{{tint.rgb[0]}}, {{tint.rgb[1]}}, {{tint.rgb[2]}}, {{colour.opacity}}</p>
+						<p>{{tint.hex}}</p>
 					</div>
 				</div>
 			</li>

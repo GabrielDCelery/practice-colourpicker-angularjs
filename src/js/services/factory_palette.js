@@ -36,6 +36,7 @@ PaletteFactory.factory('PaletteFactory', [function(){
 			paletteElement.hex = rgbToHex(arrayOfPalette[i].baseColour);
 			paletteElement.opacity = 1;
 			paletteElement.tints = [];
+			paletteElement.selected = false;
 			for(var j = 0; j < arrayOfPalette[i].tints.length; j++){
 				var tint = {};
 				tint.rgb = tintCalculator(arrayOfPalette[i].baseColour, arrayOfPalette[i].tints[j]);
