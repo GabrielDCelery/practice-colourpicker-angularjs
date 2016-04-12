@@ -226,8 +226,6 @@ PaletteFactory.factory('PaletteFactory', ['ObjectManipulatorFactory', function(O
 
 	return {
 		createPalette: createPalette,
-		rgbToHex: rgbToHex,
-		tintCalculator: tintCalculator,
 		createExportable: createExportable,
 		editPalette: editPalette
 	}
