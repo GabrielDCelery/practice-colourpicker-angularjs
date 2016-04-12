@@ -26,34 +26,34 @@ VARIABLES
 		opacity: 0
 	}
 
-	var currentlySelected = 0;
+	$scope.selectedPaletteElement = 0;
 
 /************************************************************************
 COLOUR PALETTE MODIFIER FUNCTIONS
 ************************************************************************/
 
 	function setSliders(rgb, opacity, index){
-		currentlySelected = index;
+		$scope.selectedPaletteElement = index;
 		$scope.slider = {
 			rgb: [rgb[0], rgb[1], rgb[2]], 
 			opacity: opacity
 		}
-		$scope.palette = ObjectManipulatorFactory.setKeyToTrue($scope.palette, 'selected', currentlySelected);
+		$scope.palette = ObjectManipulatorFactory.setKeyToTrue($scope.palette, 'selected', $scope.selectedPaletteElement);
 	}
 
 	function modifyColour(rgb){
-		$scope.palette = angular.copy(PaletteFactory.editPalette($scope.palette, $scope.defaultPalette, rgb, currentlySelected));
+		$scope.palette = angular.copy(PaletteFactory.editPalette($scope.palette, $scope.defaultPalette, rgb, $scope.selectedPaletteElement));
 	}
 
 	function modifyOpacity(opa){
-		$scope.palette[currentlySelected].opacity = opa;
+		$scope.palette[$scope.selectedPaletteElement].opacity = opa;
 	}
 
 	function duplicateColour(){
-		var newColourScheme = angular.copy($scope.palette[currentlySelected]);
+		var newColourScheme = angular.copy($scope.palette[$scope.selectedPaletteElement]);
 		$scope.palette.unshift(newColourScheme);
-		currentlySelected = 0;
-		$scope.palette = ObjectManipulatorFactory.setKeyToTrue($scope.palette, 'selected', currentlySelected);
+		$scope.selectedPaletteElement = 0;
+		$scope.palette = ObjectManipulatorFactory.setKeyToTrue($scope.palette, 'selected', $scope.selectedPaletteElement);
 	}
 
 /************************************************************************
