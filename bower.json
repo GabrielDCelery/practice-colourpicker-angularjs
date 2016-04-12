@@ -1,0 +1,27 @@
+{
+  "name": "practice-colourpicker-jquery",
+  "description": "JQuery Colour Picker",
+  "main": "index.js",
+  "authors": [
+    "Gabriel D. Celery"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "JQuery",
+    "Colour",
+    "picker"
+  ],
+  "homepage": "https://github.com/GabrielDCelery/practice-colourpicker-jquery",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "normalize-css": "^4.0.0",
+    "angular": "^1.5.3"
+  }
+}
