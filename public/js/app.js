@@ -79,6 +79,11 @@ DATABASE FUNCTIONS
 		});
 	}
 
+	function savePalette(){
+		var exportable = JSON.stringify(PaletteFactory.createExportable($scope.palette));
+		console.log(exportable)
+	}
+
 /************************************************************************
 EVENT BINDERS
 ************************************************************************/
@@ -88,6 +93,7 @@ EVENT BINDERS
 	$scope.modifyOpacity = modifyOpacity;
 	$scope.duplicateColour = duplicateColour;
 	$scope.getPalette = getPalette;
+	$scope.savePalette = savePalette;
 
 /************************************************************************
 INITIATING FUNCTION UPON LOADING
@@ -159,10 +165,32 @@ PaletteFactory.factory('PaletteFactory', [function(){
 		return convertedPalette;
 	}
 
+	function createExportable(arrayOfPalette){
+		var convertedPalette = [];
+
+		for(var i = 0; i < arrayOfPalette.length; i++){
+			var paletteElement = {};
+			paletteElement.name = arrayOfPalette[i].name;
+			paletteElement.baseColour = arrayOfPalette[i].rgb;
+			paletteElement.tints = [];
+			for(var j = 0; j < arrayOfPalette[i].tints.length; j++){
+				var tint = [];
+				for(var k = 0; k < 3; k++){
+					tint.push(arrayOfPalette[i].tints[j].rgb[k] - arrayOfPalette[i].rgb[k])
+				}
+				paletteElement.tints.push(tint);
+			}
+			convertedPalette.push(paletteElement);
+		}
+
+		return convertedPalette;
+	}
+
 	return {
 		createPalette: createPalette,
 		rgbToHex: rgbToHex,
-		tintCalculator: tintCalculator
+		tintCalculator: tintCalculator,
+		createExportable: createExportable
 	}
 
 }])

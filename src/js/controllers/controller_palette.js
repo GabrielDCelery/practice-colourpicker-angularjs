@@ -76,6 +76,11 @@ DATABASE FUNCTIONS
 		});
 	}
 
+	function savePalette(){
+		var exportable = JSON.stringify(PaletteFactory.createExportable($scope.palette));
+		console.log(exportable)
+	}
+
 /************************************************************************
 EVENT BINDERS
 ************************************************************************/
@@ -85,6 +90,7 @@ EVENT BINDERS
 	$scope.modifyOpacity = modifyOpacity;
 	$scope.duplicateColour = duplicateColour;
 	$scope.getPalette = getPalette;
+	$scope.savePalette = savePalette;
 
 /************************************************************************
 INITIATING FUNCTION UPON LOADING
