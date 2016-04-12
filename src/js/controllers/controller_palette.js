@@ -42,7 +42,7 @@ COLOUR PALETTE MODIFIER FUNCTIONS
 	}
 
 	function modifyColour(rgb){
-		$scope.palette = PaletteFactory.editPalette($scope.palette, $scope.defaultPalette, rgb, currentlySelected);
+		$scope.palette = angular.copy(PaletteFactory.editPalette($scope.palette, $scope.defaultPalette, rgb, currentlySelected));
 	}
 
 	function modifyOpacity(opa){
