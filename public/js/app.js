@@ -20,7 +20,6 @@ PaletteCtrl.controller('PaletteCtrl', [
 
 	console.log('palette controller is running...');
 
-
 /************************************************************************
 VARIABLES
 ************************************************************************/	
