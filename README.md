@@ -34,4 +34,4 @@ AngularJs application that allows the user to manipulate already existing colour
 ## Comments
 
 	* The task also has a half-baked version in JQuery https://github.com/GabrielDCelery/practice-colourpicker-jquery
-	* Total time to write both applications: 14 hours
+	* Total time to write both applications: 14 hours 
