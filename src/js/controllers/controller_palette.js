@@ -19,7 +19,7 @@ PaletteCtrl.controller('PaletteCtrl', [
 VARIABLES
 ************************************************************************/	
 
-	$scope.jsonPalette = [];
+	$scope.defaultPalette = [];
 	$scope.palette = [];
 
 	$scope.slider = {
@@ -43,15 +43,7 @@ COLOUR PALETTE MODIFIER FUNCTIONS
 	}
 
 	function modifyColour(rgb){
-		rgb = ObjectManipulatorFactory.arrayStringElementsToInteger(rgb);
-		$scope.palette[currentlySelected].hex = PaletteFactory.rgbToHex(rgb)
-		$scope.palette[currentlySelected].rgb = rgb;
-		var tintModifiers = $scope.jsonData[currentlySelected].tints;
-		for(var i = 0; i < tintModifiers.length; i++){
-			var modifiedTint = PaletteFactory.tintCalculator($scope.palette[currentlySelected].rgb, tintModifiers[i]);
-			$scope.palette[currentlySelected].tints[i].hex = PaletteFactory.rgbToHex(modifiedTint);
-			$scope.palette[currentlySelected].tints[i].rgb = modifiedTint;
-		}
+		$scope.palette = PaletteFactory.editPalette($scope.palette, $scope.defaultPalette, rgb, currentlySelected);
 	}
 
 	function modifyOpacity(opa){
@@ -71,7 +63,7 @@ DATABASE FUNCTIONS
 
 	function getPalette(num){
 		ApiFactory.getPalette(num, function(response){
-			$scope.jsonData = response;
+			$scope.defaultPalette = response;
 			$scope.palette = PaletteFactory.createPalette(response);
 			setSliders($scope.palette[0].rgb, $scope.palette[0].opacity, 0);
 		});

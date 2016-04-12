@@ -25,7 +25,7 @@ PaletteCtrl.controller('PaletteCtrl', [
 VARIABLES
 ************************************************************************/	
 
-	$scope.jsonPalette = [];
+	$scope.defaultPalette = [];
 	$scope.palette = [];
 
 	$scope.slider = {
@@ -49,15 +49,7 @@ COLOUR PALETTE MODIFIER FUNCTIONS
 	}
 
 	function modifyColour(rgb){
-		rgb = ObjectManipulatorFactory.arrayStringElementsToInteger(rgb);
-		$scope.palette[currentlySelected].hex = PaletteFactory.rgbToHex(rgb)
-		$scope.palette[currentlySelected].rgb = rgb;
-		var tintModifiers = $scope.jsonData[currentlySelected].tints;
-		for(var i = 0; i < tintModifiers.length; i++){
-			var modifiedTint = PaletteFactory.tintCalculator($scope.palette[currentlySelected].rgb, tintModifiers[i]);
-			$scope.palette[currentlySelected].tints[i].hex = PaletteFactory.rgbToHex(modifiedTint);
-			$scope.palette[currentlySelected].tints[i].rgb = modifiedTint;
-		}
+		$scope.palette = PaletteFactory.editPalette($scope.palette, $scope.defaultPalette, rgb, currentlySelected);
 	}
 
 	function modifyOpacity(opa){
@@ -77,7 +69,7 @@ DATABASE FUNCTIONS
 
 	function getPalette(num){
 		ApiFactory.getPalette(num, function(response){
-			$scope.jsonData = response;
+			$scope.defaultPalette = response;
 			$scope.palette = PaletteFactory.createPalette(response);
 			setSliders($scope.palette[0].rgb, $scope.palette[0].opacity, 0);
 		});
@@ -150,7 +142,7 @@ ObjectManipulatorFactory.factory('ObjectManipulatorFactory', [function(){
 }])
 var PaletteFactory = angular.module('PaletteFactory', []);
 
-PaletteFactory.factory('PaletteFactory', [function(){
+PaletteFactory.factory('PaletteFactory', ['ObjectManipulatorFactory', function(ObjectManipulatorFactory){
 
 	function rgbNumberToHex(rgbNumber) {
 		var hex = rgbNumber.toString(16);
@@ -199,6 +191,19 @@ PaletteFactory.factory('PaletteFactory', [function(){
 		return convertedPalette;
 	}
 
+	function editPalette(palette, defaultPalette, rgb, index){
+		rgb = ObjectManipulatorFactory.arrayStringElementsToInteger(rgb);
+		palette[index].hex = rgbToHex(rgb)
+		palette[index].rgb = rgb;
+		var tintModifiers = defaultPalette[index].tints;
+		for(var i = 0; i < tintModifiers.length; i++){
+			var modifiedTint = tintCalculator(palette[index].rgb, tintModifiers[i]);
+			palette[index].tints[i].hex = rgbToHex(modifiedTint);
+			palette[index].tints[i].rgb = modifiedTint;
+		}
+		return palette;
+	}
+
 	function createExportable(arrayOfPalette){
 		var convertedPalette = [];
 
@@ -224,7 +229,8 @@ PaletteFactory.factory('PaletteFactory', [function(){
 		createPalette: createPalette,
 		rgbToHex: rgbToHex,
 		tintCalculator: tintCalculator,
-		createExportable: createExportable
+		createExportable: createExportable,
+		editPalette: editPalette
 	}
 
 }])

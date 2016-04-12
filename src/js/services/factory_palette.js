@@ -1,6 +1,6 @@
 var PaletteFactory = angular.module('PaletteFactory', []);
 
-PaletteFactory.factory('PaletteFactory', [function(){
+PaletteFactory.factory('PaletteFactory', ['ObjectManipulatorFactory', function(ObjectManipulatorFactory){
 
 	function rgbNumberToHex(rgbNumber) {
 		var hex = rgbNumber.toString(16);
@@ -49,6 +49,19 @@ PaletteFactory.factory('PaletteFactory', [function(){
 		return convertedPalette;
 	}
 
+	function editPalette(palette, defaultPalette, rgb, index){
+		rgb = ObjectManipulatorFactory.arrayStringElementsToInteger(rgb);
+		palette[index].hex = rgbToHex(rgb)
+		palette[index].rgb = rgb;
+		var tintModifiers = defaultPalette[index].tints;
+		for(var i = 0; i < tintModifiers.length; i++){
+			var modifiedTint = tintCalculator(palette[index].rgb, tintModifiers[i]);
+			palette[index].tints[i].hex = rgbToHex(modifiedTint);
+			palette[index].tints[i].rgb = modifiedTint;
+		}
+		return palette;
+	}
+
 	function createExportable(arrayOfPalette){
 		var convertedPalette = [];
 
@@ -74,7 +87,8 @@ PaletteFactory.factory('PaletteFactory', [function(){
 		createPalette: createPalette,
 		rgbToHex: rgbToHex,
 		tintCalculator: tintCalculator,
-		createExportable: createExportable
+		createExportable: createExportable,
+		editPalette: editPalette
 	}
 
 }])
