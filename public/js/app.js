@@ -62,6 +62,14 @@ COLOUR PALETTE MODIFIER FUNCTIONS
 		$scope.palette = ObjectManipulatorFactory.setKeyToTrue($scope.palette, 'selected', $scope.selectedPaletteElement);
 	}
 
+	function deleteColour(){
+		if($scope.palette.length > 1){
+			$scope.palette.splice($scope.selectedPaletteElement, 1);
+			$scope.selectedPaletteElement = 0;
+			$scope.palette = ObjectManipulatorFactory.setKeyToTrue($scope.palette, 'selected', 0);
+		}
+	}
+
 /************************************************************************
 DATABASE FUNCTIONS
 ************************************************************************/
@@ -89,6 +97,7 @@ EVENT BINDERS
 	$scope.duplicateColour = duplicateColour;
 	$scope.getPalette = getPalette;
 	$scope.savePalette = savePalette;
+	$scope.deleteColour = deleteColour;
 
 /************************************************************************
 INITIATING FUNCTION UPON LOADING
