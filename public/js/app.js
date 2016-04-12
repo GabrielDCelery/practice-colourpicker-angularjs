@@ -7,12 +7,12 @@ var colourPickerApp = angular.module('ColourPickerApp', ['ApiFactory', 'PaletteF
 var PaletteCtrl = angular.module('PaletteCtrl', []);
 
 PaletteCtrl.controller('PaletteCtrl', [
-	'$scope', 
+	'$scope',  
 	'ApiFactory', 
 	'PaletteFactory', 
 	'ObjectManipulatorFactory', 
 	function(
-		$scope, 
+		$scope,  
 		ApiFactory, 
 		PaletteFactory,
 		ObjectManipulatorFactory
@@ -60,6 +60,7 @@ COLOUR PALETTE MODIFIER FUNCTIONS
 		$scope.palette.unshift(newColourScheme);
 		$scope.selectedPaletteElement = 0;
 		$scope.palette = ObjectManipulatorFactory.setKeyToTrue($scope.palette, 'selected', $scope.selectedPaletteElement);
+		document.body.scrollTop = 0;
 	}
 
 	function deleteColour(){
