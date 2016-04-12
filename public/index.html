@@ -5,12 +5,12 @@
 	<link rel="stylesheet" type="text/css" href="lib/normalize-css/normalize.css">
 	<link rel="stylesheet" type="text/css" href="css/app.min.css">
 </head>
-<body>
+<body ng-app='ColourPickerApp' ng-controller="PaletteCtrl">
 
 	<nav>
 		<ul class="navButtons">
-			<li id="getBasePalette">GET BASE COLOURS</li>
-			<li id="getExtendedPalette">GET EXTENDED COLOURS</li>
+			<li ng-click="getPalette(1)">GET BASE COLOURS</li>
+			<li ng-click="getPalette(2)">GET EXTENDED COLOURS</li>
 			<li>ADD NEW COLOUR</li>
 			<li>DUPLICATE EXISTING COLOUR</li>
 		</ul>
@@ -18,41 +18,28 @@
 
 	<main>
 		<ul>
-			<li class="monochromatic">
+			<li class="monochromatic" ng-repeat="colour in palette">
 				<div class="colourValueBox">
 					<div class="baseColourValues">
-						<p class="rgbaValue">120,0,0,1</p>
-						<p class="hexValue">#780000</p>
+						<p class="rgbaValue">{{colour.rgb}}</p>
+						<p class="hexValue">{{colour.hex}}</p>
 					</div>
 				</div>
 				<div class="colourBox">
-					<div class="baseColour" style="background-color: rgba(120,0,0,1);"></div>
+					<div class="baseColour" ng-style="{{createBackgroundStyle(colour.rgb)}}"></div>
 				</div>
 				<div class="colourBox">
-					<div class="tintColour" style="background-color: rgba(110,0,0,1);"></div>
-					<div class="tintColour" style="background-color: rgba(120,0,0,1);"></div>
-					<div class="tintColour" style="background-color: rgba(160,0,0,1);"></div>
-					<div class="tintColour" style="background-color: rgba(200,0,0,1);"></div>	
+					<div class="tintColours" ng-repeat="tint in colour.tints">
+						<div class="tintColour" ng-style="{{createBackgroundStyle(tint.rgb)}}"></div>
+					</div>
 				</div>
 				<div class="colourValueBox">
-					<div class="tintColourValues">
-						<p class="rgbaValue">110,0,0,1</p>
-						<p class="hexValue">#6E0000</p>
-					</div>
-					<div class="tintColourValues">
-						<p class="rgbaValue">120,0,0,1</p>
-						<p class="hexValue">#780000</p>
-					</div>
-					<div class="tintColourValues">
-						<p class="rgbaValue">160,0,0,1</p>
-						<p class="hexValue">#960000</p>
-					</div>
-					<div class="tintColourValues">
-						<p class="rgbaValue">200,0,0,1</p>
-						<p class="hexValue">#C80000</p>
+					<div class="tintColourValues" ng-repeat="tint in colour.tints">
+						<p class="rgbaValue">{{tint.rgb}}</p>
+						<p class="hexValue">{{tint.hex}}</p>
 					</div>
 				</div>
-			</li>	
+			</li>
 		</ul>
 	</main>
 
@@ -77,7 +64,7 @@
 
 
 	<script type="text/javascript" src="lib/angular/angular.min.js"></script>
-	<script type="text/javascript" src="js/app.min.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
 
 </body>
 </html>

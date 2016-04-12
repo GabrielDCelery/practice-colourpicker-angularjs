@@ -75,7 +75,8 @@ main {
 }
 
 .colourBox,
-.colourValueBox {
+.colourValueBox,
+.tintColours {
 	display: flex;
 	width: 100%;
 }
@@ -109,7 +110,7 @@ main {
 COLOUR BOXES BEHAVIOUR
 ******************************************************************/
 
-.baseColour {
+.colourBox {
 	cursor: pointer;
 }
 
