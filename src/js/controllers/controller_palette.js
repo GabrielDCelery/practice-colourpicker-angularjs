@@ -45,8 +45,8 @@ COLOUR PALETTE MODIFIER FUNCTIONS
 		$scope.palette = angular.copy(PaletteFactory.editPalette($scope.palette, $scope.defaultPalette, rgb, $scope.selectedPaletteElement));
 	}
 
-	function modifyOpacity(opa){
-		$scope.palette[$scope.selectedPaletteElement].opacity = opa;
+	function modifyOpacity(opacity){
+		$scope.palette[$scope.selectedPaletteElement].opacity = opacity;
 	}
 
 	function duplicateColour(){
