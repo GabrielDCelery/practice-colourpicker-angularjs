@@ -55,8 +55,8 @@ COLOUR PALETTE MODIFIER FUNCTIONS
 		$scope.palette = PaletteFactory.editPalette($scope.palette, $scope.defaultPalette, rgb, $scope.selectedColourIndex);
 	}
 
-	function modifyOpacity(opacity){
-		$scope.palette[$scope.selectedColourIndex].opacity = opacity;
+	function modifyOpacity(slider){
+		$scope.palette[$scope.selectedColourIndex].opacity = slider.opacity;
 	}
 
 	function duplicateColour(){
