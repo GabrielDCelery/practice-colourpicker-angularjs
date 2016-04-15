@@ -202,7 +202,7 @@ PaletteFactory.factory('PaletteFactory', ['ObjectManipulatorFactory', function(O
 
 	function editPalette(palette, defaultPalette, rgb, index){
 		rgb = ObjectManipulatorFactory.arrayStringElementsToInteger(rgb);
-		palette[index].hex = rgbToHex(rgb)
+		palette[index].hex = rgbToHex(rgb);
 		palette[index].rgb = rgb;
 		var tintModifiers = defaultPalette[index].tints;
 		for(var i = 0; i < tintModifiers.length; i++){
