@@ -71,12 +71,8 @@ PaletteFactory.factory('PaletteFactory', [function(){
 			paletteElement.name = arrayOfPalette[i].name;
 			paletteElement.baseColour = arrayOfPalette[i].rgb;
 			paletteElement.tints = [];
-			for(var j = 0; j < arrayOfPalette[i].tints.length; j++){
-				var tint = [];
-				for(var k = 0; k < 3; k++){
-					tint.push(arrayOfPalette[i].tints[j].rgb[k] - arrayOfPalette[i].rgb[k])
-				}
-				paletteElement.tints.push(tint);
+			for(var j = 0; j < arrayOfPalette[i].tints.length;j++){
+				paletteElement.tints.push(arrayOfPalette[i].tints[j].tint);
 			}
 			convertedPalette.push(paletteElement);
 		}
