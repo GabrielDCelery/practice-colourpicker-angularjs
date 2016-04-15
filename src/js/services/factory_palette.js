@@ -1,6 +1,6 @@
 var PaletteFactory = angular.module('PaletteFactory', []);
 
-PaletteFactory.factory('PaletteFactory', ['ObjectManipulatorFactory', function(ObjectManipulatorFactory){
+PaletteFactory.factory('PaletteFactory', [function(){
 
 	function rgbNumberToHex(rgbNumber) {
 		var hex = rgbNumber.toString(16);
@@ -51,7 +51,6 @@ PaletteFactory.factory('PaletteFactory', ['ObjectManipulatorFactory', function(O
 	}
 
 	function editPalette(palette, rgb, index){
-		rgb = ObjectManipulatorFactory.arrayStringElementsToInteger(rgb);
 		palette[index].rgb = rgb;
 		palette[index].hex = rgbToHex(rgb);
 		var tints = palette[index].tints;

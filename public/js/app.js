@@ -52,6 +52,7 @@ COLOUR PALETTE MODIFIER FUNCTIONS
 		var rgb = slider.rgb;
 		$scope.palette[$scope.selectedColourIndex].name = slider.name;
 		$scope.palette[$scope.selectedColourIndex].opacity = slider.opacity;
+		rgb = ObjectManipulatorFactory.arrayStringElementsToInteger(rgb);
 		$scope.palette = PaletteFactory.editPalette($scope.palette, rgb, $scope.selectedColourIndex);
 	}
 
@@ -148,7 +149,7 @@ ObjectManipulatorFactory.factory('ObjectManipulatorFactory', [function(){
 }])
 var PaletteFactory = angular.module('PaletteFactory', []);
 
-PaletteFactory.factory('PaletteFactory', ['ObjectManipulatorFactory', function(ObjectManipulatorFactory){
+PaletteFactory.factory('PaletteFactory', [function(){
 
 	function rgbNumberToHex(rgbNumber) {
 		var hex = rgbNumber.toString(16);
@@ -199,7 +200,6 @@ PaletteFactory.factory('PaletteFactory', ['ObjectManipulatorFactory', function(O
 	}
 
 	function editPalette(palette, rgb, index){
-		rgb = ObjectManipulatorFactory.arrayStringElementsToInteger(rgb);
 		palette[index].rgb = rgb;
 		palette[index].hex = rgbToHex(rgb);
 		var tints = palette[index].tints;

@@ -46,6 +46,7 @@ COLOUR PALETTE MODIFIER FUNCTIONS
 		var rgb = slider.rgb;
 		$scope.palette[$scope.selectedColourIndex].name = slider.name;
 		$scope.palette[$scope.selectedColourIndex].opacity = slider.opacity;
+		rgb = ObjectManipulatorFactory.arrayStringElementsToInteger(rgb);
 		$scope.palette = PaletteFactory.editPalette($scope.palette, rgb, $scope.selectedColourIndex);
 	}
 
