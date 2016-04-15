@@ -61,7 +61,7 @@ COLOUR PALETTE MODIFIER FUNCTIONS
 		if($scope.palette.length > 1){
 			$scope.palette.splice($scope.selectedPaletteElement, 1);
 			$scope.selectedPaletteElement = 0;
-			$scope.palette = ObjectManipulatorFactory.setKeyToTrue($scope.palette, 'selected', 0);
+			setSliders($scope.palette[0].rgb, $scope.palette[0].opacity, 0);
 		}
 	}
 
