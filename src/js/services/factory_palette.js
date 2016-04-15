@@ -11,10 +11,10 @@ PaletteFactory.factory('PaletteFactory', [function(){
 		return '#' + rgbNumberToHex(array[0]) + rgbNumberToHex(array[1]) + rgbNumberToHex(array[2]);
 	}
 
-	function tintCalculator(rbgColour, tint){
+	function tintCalculator(rgbColour, tint){
 		var modifiedRbgColour = [];
 		for(var i = 0; i < 3; i++){
-			var modifiedRbgValue = rbgColour[i] + tint[i];
+			var modifiedRbgValue = rgbColour[i] + tint[i];
 			if(modifiedRbgValue < 0){
 				modifiedRbgValue = 0;
 			}
