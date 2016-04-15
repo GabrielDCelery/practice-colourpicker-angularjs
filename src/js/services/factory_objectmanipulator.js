@@ -2,7 +2,7 @@ var ObjectManipulatorFactory = angular.module('ObjectManipulatorFactory', []);
 
 ObjectManipulatorFactory.factory('ObjectManipulatorFactory', [function(){
 
-	function setKeyToTrue(arrayOfObjects, propertyName, index){
+	function setSelectedKeyToTrueOthersToFalse(arrayOfObjects, propertyName, index){
 		for(var i = 0; i < arrayOfObjects.length; i++){
 			if(i == index) {
 				arrayOfObjects[i][propertyName] = true;
@@ -22,7 +22,7 @@ ObjectManipulatorFactory.factory('ObjectManipulatorFactory', [function(){
 
 
 	return {
-		setKeyToTrue: setKeyToTrue,
+		setSelectedKeyToTrueOthersToFalse: setSelectedKeyToTrueOthersToFalse,
 		arrayStringElementsToIntegers: arrayStringElementsToIntegers
 	}
 

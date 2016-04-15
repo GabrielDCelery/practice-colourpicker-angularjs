@@ -45,7 +45,7 @@ COLOUR PALETTE MODIFIER FUNCTIONS
 			rgb: [palette[index]['rgb'][0], palette[index]['rgb'][1], palette[index]['rgb'][2]], 
 			opacity: palette[index]['opacity']
 		}
-		$scope.palette = ObjectManipulatorFactory.setKeyToTrue($scope.palette, 'selected', $scope.selectedColourIndex);
+		$scope.palette = ObjectManipulatorFactory.setSelectedKeyToTrueOthersToFalse($scope.palette, 'selected', $scope.selectedColourIndex);
 	}
 
 	function editColour(slider){
@@ -119,7 +119,7 @@ var ObjectManipulatorFactory = angular.module('ObjectManipulatorFactory', []);
 
 ObjectManipulatorFactory.factory('ObjectManipulatorFactory', [function(){
 
-	function setKeyToTrue(arrayOfObjects, propertyName, index){
+	function setSelectedKeyToTrueOthersToFalse(arrayOfObjects, propertyName, index){
 		for(var i = 0; i < arrayOfObjects.length; i++){
 			if(i == index) {
 				arrayOfObjects[i][propertyName] = true;
@@ -139,7 +139,7 @@ ObjectManipulatorFactory.factory('ObjectManipulatorFactory', [function(){
 
 
 	return {
-		setKeyToTrue: setKeyToTrue,
+		setSelectedKeyToTrueOthersToFalse: setSelectedKeyToTrueOthersToFalse,
 		arrayStringElementsToIntegers: arrayStringElementsToIntegers
 	}
 

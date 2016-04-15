@@ -39,7 +39,7 @@ COLOUR PALETTE MODIFIER FUNCTIONS
 			rgb: [palette[index]['rgb'][0], palette[index]['rgb'][1], palette[index]['rgb'][2]], 
 			opacity: palette[index]['opacity']
 		}
-		$scope.palette = ObjectManipulatorFactory.setKeyToTrue($scope.palette, 'selected', $scope.selectedColourIndex);
+		$scope.palette = ObjectManipulatorFactory.setSelectedKeyToTrueOthersToFalse($scope.palette, 'selected', $scope.selectedColourIndex);
 	}
 
 	function editColour(slider){
