@@ -26,10 +26,10 @@
 						<p>{{colour.hex}}</p>
 					</div>
 				</div>
-				<div class="colourBox" ng-click="setSliders(palette, $index)">
+				<div class="colourBox" ng-click="selectColour(palette, $index)">
 					<div class="baseColour" ng-style="{'background-color': 'rgba(' + colour.rgb[0] + ', ' + colour.rgb[1] + ',' + colour.rgb[2] + ',' + colour.opacity + ')'}"></div>
 				</div>
-				<div class="colourBox" ng-click="setSliders(palette, $index)">
+				<div class="colourBox" ng-click="selectColour(palette, $index)">
 					<div class="tintColours" ng-repeat="tint in colour.tints">
 						<div class="tintColour" ng-style="{'background-color': 'rgba(' + tint.rgb[0] + ', ' + tint.rgb[1] + ',' + tint.rgb[2] + ',' + colour.opacity + ')'}"></div>
 					</div>
