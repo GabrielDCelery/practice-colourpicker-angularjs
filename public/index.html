@@ -47,26 +47,26 @@
 	<footer>
 		<div class="colourAdjuster">
 			<p>NAME</p>
-			<input type="textbox" ng-model="slider.name" ng-change="modifyColour(slider)"></input>
+			<input type="textbox" ng-model="slider.name" ng-change="editColour(slider)"></input>
 		</div>
 		<div class="colourAdjuster">
 			<p>R</p>
-			<input type="range" min="0" max="255" ng-model="slider.rgb[0]" ng-change="modifyColour(slider)"></input>
-			<input type="textbox" ng-model="slider.rgb[0]" ng-change="modifyColour(slider.rgb)"></input>
+			<input type="range" min="0" max="255" ng-model="slider.rgb[0]" ng-change="editColour(slider)"></input>
+			<input type="textbox" ng-model="slider.rgb[0]" ng-change="editColour(slider.rgb)"></input>
 		</div>
 		<div class="colourAdjuster">
 			<p>G</p>
-			<input type="range" min="0" max="255" ng-model="slider.rgb[1]" ng-change="modifyColour(slider)"></input>
-			<input type="textbox" ng-model="slider.rgb[1]" ng-change="modifyColour(slider.rgb)"></input>
+			<input type="range" min="0" max="255" ng-model="slider.rgb[1]" ng-change="editColour(slider)"></input>
+			<input type="textbox" ng-model="slider.rgb[1]" ng-change="editColour(slider.rgb)"></input>
 		</div>
 		<div class="colourAdjuster">
 			<p>B</p>
-			<input type="range" min="0" max="255" ng-model="slider.rgb[2]" ng-change="modifyColour(slider)"></input>
-			<input type="textbox" ng-model="slider.rgb[2]" ng-change="modifyColour(slider.rgb)"></input>
+			<input type="range" min="0" max="255" ng-model="slider.rgb[2]" ng-change="editColour(slider)"></input>
+			<input type="textbox" ng-model="slider.rgb[2]" ng-change="editColour(slider.rgb)"></input>
 		</div>
 		<div class="colourAdjuster">
 			<p>O</p>
-			<input type="number" ng-model="slider.opacity" ng-change="modifyColour(slider)"></input>
+			<input type="number" ng-model="slider.opacity" ng-change="editColour(slider)"></input>
 		</div>
 	</footer>
 

@@ -42,12 +42,9 @@ COLOUR PALETTE MODIFIER FUNCTIONS
 		$scope.palette = ObjectManipulatorFactory.setKeyToTrue($scope.palette, 'selected', $scope.selectedColourIndex);
 	}
 
-	function modifyColour(slider){
-		var rgb = slider.rgb;
-		$scope.palette[$scope.selectedColourIndex].name = slider.name;
-		$scope.palette[$scope.selectedColourIndex].opacity = slider.opacity;
-		rgb = ObjectManipulatorFactory.arrayStringElementsToInteger(rgb);
-		$scope.palette = PaletteFactory.editPalette($scope.palette, rgb, $scope.selectedColourIndex);
+	function editColour(slider){
+		slider.rgb = ObjectManipulatorFactory.arrayStringElementsToInteger(slider.rgb);
+		$scope.palette = PaletteFactory.editPalette($scope.palette, $scope.selectedColourIndex, slider);
 	}
 
 	function duplicateColour(){
@@ -86,7 +83,7 @@ EVENT BINDERS
 ************************************************************************/
 
 	$scope.selectColour = selectColour;
-	$scope.modifyColour = modifyColour;
+	$scope.editColour = editColour;
 	$scope.duplicateColour = duplicateColour;
 	$scope.getPalette = getPalette;
 	$scope.savePalette = savePalette;

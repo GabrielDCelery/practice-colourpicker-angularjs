@@ -4,107 +4,6 @@ var colourPickerApp = angular.module('ColourPickerApp', ['ApiFactory', 'PaletteF
 
 
 
-var PaletteCtrl = angular.module('PaletteCtrl', []);
-
-PaletteCtrl.controller('PaletteCtrl', [
-	'$scope',  
-	'ApiFactory', 
-	'PaletteFactory', 
-	'ObjectManipulatorFactory', 
-	function(
-		$scope,  
-		ApiFactory, 
-		PaletteFactory,
-		ObjectManipulatorFactory
-	){
-
-	console.log('palette controller is running...');
-
-/************************************************************************
-VARIABLES
-************************************************************************/	
-
-	$scope.palette = [];
-
-	$scope.slider = {
-		name: '', 
-		rgb: [0, 0, 0],
-		opacity: 0
-	}
-
-	$scope.selectedColourIndex = 0;
-
-/************************************************************************
-COLOUR PALETTE MODIFIER FUNCTIONS
-************************************************************************/
-
-	function selectColour(palette, index){
-		$scope.selectedColourIndex = index;
-		$scope.slider = {
-			name: palette[index]['name'], 
-			rgb: [palette[index]['rgb'][0], palette[index]['rgb'][1], palette[index]['rgb'][2]], 
-			opacity: palette[index]['opacity']
-		}
-		$scope.palette = ObjectManipulatorFactory.setKeyToTrue($scope.palette, 'selected', $scope.selectedColourIndex);
-	}
-
-	function modifyColour(slider){
-		var rgb = slider.rgb;
-		$scope.palette[$scope.selectedColourIndex].name = slider.name;
-		$scope.palette[$scope.selectedColourIndex].opacity = slider.opacity;
-		rgb = ObjectManipulatorFactory.arrayStringElementsToInteger(rgb);
-		$scope.palette = PaletteFactory.editPalette($scope.palette, rgb, $scope.selectedColourIndex);
-	}
-
-	function duplicateColour(){
-		var newColourScheme = angular.copy($scope.palette[$scope.selectedColourIndex]);
-		newColourScheme.name = 'New' + newColourScheme.name;
-		$scope.palette.unshift(newColourScheme);
-		selectColour($scope.palette, 0);
-		document.body.scrollTop = 0;
-	}
-
-	function deleteColour(){
-		if($scope.palette.length > 1){
-			$scope.palette.splice($scope.selectedColourIndex, 1);
-			selectColour($scope.palette, 0);
-		}
-	}
-
-/************************************************************************
-DATABASE FUNCTIONS
-************************************************************************/
-
-	function getPalette(num){
-		ApiFactory.getPalette(num, function(response){
-			$scope.palette = PaletteFactory.createPalette(response);
-			selectColour($scope.palette, 0);
-		});
-	}
-
-	function savePalette(){
-		var exportable = JSON.stringify(PaletteFactory.createExportable($scope.palette));
-		console.log(exportable)
-	}
-
-/************************************************************************
-EVENT BINDERS
-************************************************************************/
-
-	$scope.selectColour = selectColour;
-	$scope.modifyColour = modifyColour;
-	$scope.duplicateColour = duplicateColour;
-	$scope.getPalette = getPalette;
-	$scope.savePalette = savePalette;
-	$scope.deleteColour = deleteColour;
-
-/************************************************************************
-INITIATING FUNCTION UPON LOADING
-************************************************************************/
-
-	getPalette(1);
-
-}])
 var ApiFactory = angular.module('ApiFactory', []);
 
 ApiFactory.factory('ApiFactory', ['$http', function($http){
@@ -199,9 +98,11 @@ PaletteFactory.factory('PaletteFactory', [function(){
 		return convertedPalette;
 	}
 
-	function editPalette(palette, rgb, index){
-		palette[index].rgb = rgb;
-		palette[index].hex = rgbToHex(rgb);
+	function editPalette(palette, index, slider){
+		palette[index].name = slider.name;
+		palette[index].rgb = slider.rgb;
+		palette[index].hex = rgbToHex(slider.rgb);
+		palette[index].opacity = slider.opacity;
 		var tints = palette[index].tints;
 		for(var i = 0; i < palette[index].tints.length; i++){
 			var modifiedTint = tintCalculator(palette[index].rgb, palette[index].tints[i].tint);
@@ -234,5 +135,103 @@ PaletteFactory.factory('PaletteFactory', [function(){
 		createExportable: createExportable,
 		editPalette: editPalette
 	}
+
+}])
+var PaletteCtrl = angular.module('PaletteCtrl', []);
+
+PaletteCtrl.controller('PaletteCtrl', [
+	'$scope',  
+	'ApiFactory', 
+	'PaletteFactory', 
+	'ObjectManipulatorFactory', 
+	function(
+		$scope,  
+		ApiFactory, 
+		PaletteFactory,
+		ObjectManipulatorFactory
+	){
+
+	console.log('palette controller is running...');
+
+/************************************************************************
+VARIABLES
+************************************************************************/	
+
+	$scope.palette = [];
+
+	$scope.slider = {
+		name: '', 
+		rgb: [0, 0, 0],
+		opacity: 0
+	}
+
+	$scope.selectedColourIndex = 0;
+
+/************************************************************************
+COLOUR PALETTE MODIFIER FUNCTIONS
+************************************************************************/
+
+	function selectColour(palette, index){
+		$scope.selectedColourIndex = index;
+		$scope.slider = {
+			name: palette[index]['name'], 
+			rgb: [palette[index]['rgb'][0], palette[index]['rgb'][1], palette[index]['rgb'][2]], 
+			opacity: palette[index]['opacity']
+		}
+		$scope.palette = ObjectManipulatorFactory.setKeyToTrue($scope.palette, 'selected', $scope.selectedColourIndex);
+	}
+
+	function editColour(slider){
+		slider.rgb = ObjectManipulatorFactory.arrayStringElementsToInteger(slider.rgb);
+		$scope.palette = PaletteFactory.editPalette($scope.palette, $scope.selectedColourIndex, slider);
+	}
+
+	function duplicateColour(){
+		var newColourScheme = angular.copy($scope.palette[$scope.selectedColourIndex]);
+		newColourScheme.name = 'New' + newColourScheme.name;
+		$scope.palette.unshift(newColourScheme);
+		selectColour($scope.palette, 0);
+		document.body.scrollTop = 0;
+	}
+
+	function deleteColour(){
+		if($scope.palette.length > 1){
+			$scope.palette.splice($scope.selectedColourIndex, 1);
+			selectColour($scope.palette, 0);
+		}
+	}
+
+/************************************************************************
+DATABASE FUNCTIONS
+************************************************************************/
+
+	function getPalette(num){
+		ApiFactory.getPalette(num, function(response){
+			$scope.palette = PaletteFactory.createPalette(response);
+			selectColour($scope.palette, 0);
+		});
+	}
+
+	function savePalette(){
+		var exportable = JSON.stringify(PaletteFactory.createExportable($scope.palette));
+		console.log(exportable)
+	}
+
+/************************************************************************
+EVENT BINDERS
+************************************************************************/
+
+	$scope.selectColour = selectColour;
+	$scope.editColour = editColour;
+	$scope.duplicateColour = duplicateColour;
+	$scope.getPalette = getPalette;
+	$scope.savePalette = savePalette;
+	$scope.deleteColour = deleteColour;
+
+/************************************************************************
+INITIATING FUNCTION UPON LOADING
+************************************************************************/
+
+	getPalette(1);
 
 }])
