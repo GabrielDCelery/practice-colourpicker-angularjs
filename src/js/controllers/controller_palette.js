@@ -18,7 +18,6 @@ PaletteCtrl.controller('PaletteCtrl', [
 VARIABLES
 ************************************************************************/	
 
-	$scope.defaultPalette = [];
 	$scope.palette = [];
 
 	$scope.slider = {
@@ -47,7 +46,7 @@ COLOUR PALETTE MODIFIER FUNCTIONS
 		var rgb = slider.rgb;
 		$scope.palette[$scope.selectedColourIndex].name = slider.name;
 		$scope.palette[$scope.selectedColourIndex].opacity = slider.opacity;
-		$scope.palette = PaletteFactory.editPalette($scope.palette, $scope.defaultPalette, rgb, $scope.selectedColourIndex);
+		$scope.palette = PaletteFactory.editPalette($scope.palette, rgb, $scope.selectedColourIndex);
 	}
 
 	function duplicateColour(){
@@ -71,7 +70,6 @@ DATABASE FUNCTIONS
 
 	function getPalette(num){
 		ApiFactory.getPalette(num, function(response){
-			$scope.defaultPalette = response;
 			$scope.palette = PaletteFactory.createPalette(response);
 			selectColour($scope.palette, 0);
 		});

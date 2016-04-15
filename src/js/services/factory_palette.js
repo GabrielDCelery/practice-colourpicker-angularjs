@@ -41,6 +41,7 @@ PaletteFactory.factory('PaletteFactory', ['ObjectManipulatorFactory', function(O
 				var tint = {};
 				tint.rgb = tintCalculator(arrayOfPalette[i].baseColour, arrayOfPalette[i].tints[j]);
 				tint.hex = rgbToHex(tint.rgb);
+				tint.tint = arrayOfPalette[i].tints[j];
 				paletteElement.tints.push(tint);
 			}
 			convertedPalette.push(paletteElement);
@@ -49,16 +50,17 @@ PaletteFactory.factory('PaletteFactory', ['ObjectManipulatorFactory', function(O
 		return convertedPalette;
 	}
 
-	function editPalette(palette, defaultPalette, rgb, index){
+	function editPalette(palette, rgb, index){
 		rgb = ObjectManipulatorFactory.arrayStringElementsToInteger(rgb);
-		palette[index].hex = rgbToHex(rgb);
 		palette[index].rgb = rgb;
-		var tintModifiers = defaultPalette[index].tints;
-		for(var i = 0; i < tintModifiers.length; i++){
-			var modifiedTint = tintCalculator(palette[index].rgb, tintModifiers[i]);
-			palette[index].tints[i].hex = rgbToHex(modifiedTint);
+		palette[index].hex = rgbToHex(rgb);
+		var tints = palette[index].tints;
+		for(var i = 0; i < palette[index].tints.length; i++){
+			var modifiedTint = tintCalculator(palette[index].rgb, palette[index].tints[i].tint);
 			palette[index].tints[i].rgb = modifiedTint;
+			palette[index].tints[i].hex = rgbToHex(modifiedTint);
 		}
+
 		return palette;
 	}
 

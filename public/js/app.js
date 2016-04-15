@@ -24,7 +24,6 @@ PaletteCtrl.controller('PaletteCtrl', [
 VARIABLES
 ************************************************************************/	
 
-	$scope.defaultPalette = [];
 	$scope.palette = [];
 
 	$scope.slider = {
@@ -53,7 +52,7 @@ COLOUR PALETTE MODIFIER FUNCTIONS
 		var rgb = slider.rgb;
 		$scope.palette[$scope.selectedColourIndex].name = slider.name;
 		$scope.palette[$scope.selectedColourIndex].opacity = slider.opacity;
-		$scope.palette = PaletteFactory.editPalette($scope.palette, $scope.defaultPalette, rgb, $scope.selectedColourIndex);
+		$scope.palette = PaletteFactory.editPalette($scope.palette, rgb, $scope.selectedColourIndex);
 	}
 
 	function duplicateColour(){
@@ -77,7 +76,6 @@ DATABASE FUNCTIONS
 
 	function getPalette(num){
 		ApiFactory.getPalette(num, function(response){
-			$scope.defaultPalette = response;
 			$scope.palette = PaletteFactory.createPalette(response);
 			selectColour($scope.palette, 0);
 		});
@@ -191,6 +189,7 @@ PaletteFactory.factory('PaletteFactory', ['ObjectManipulatorFactory', function(O
 				var tint = {};
 				tint.rgb = tintCalculator(arrayOfPalette[i].baseColour, arrayOfPalette[i].tints[j]);
 				tint.hex = rgbToHex(tint.rgb);
+				tint.tint = arrayOfPalette[i].tints[j];
 				paletteElement.tints.push(tint);
 			}
 			convertedPalette.push(paletteElement);
@@ -199,16 +198,17 @@ PaletteFactory.factory('PaletteFactory', ['ObjectManipulatorFactory', function(O
 		return convertedPalette;
 	}
 
-	function editPalette(palette, defaultPalette, rgb, index){
+	function editPalette(palette, rgb, index){
 		rgb = ObjectManipulatorFactory.arrayStringElementsToInteger(rgb);
-		palette[index].hex = rgbToHex(rgb);
 		palette[index].rgb = rgb;
-		var tintModifiers = defaultPalette[index].tints;
-		for(var i = 0; i < tintModifiers.length; i++){
-			var modifiedTint = tintCalculator(palette[index].rgb, tintModifiers[i]);
-			palette[index].tints[i].hex = rgbToHex(modifiedTint);
+		palette[index].hex = rgbToHex(rgb);
+		var tints = palette[index].tints;
+		for(var i = 0; i < palette[index].tints.length; i++){
+			var modifiedTint = tintCalculator(palette[index].rgb, palette[index].tints[i].tint);
 			palette[index].tints[i].rgb = modifiedTint;
+			palette[index].tints[i].hex = rgbToHex(modifiedTint);
 		}
+
 		return palette;
 	}
 
