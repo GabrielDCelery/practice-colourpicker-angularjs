@@ -46,11 +46,8 @@ COLOUR PALETTE MODIFIER FUNCTIONS
 	function modifyColour(slider){
 		var rgb = slider.rgb;
 		$scope.palette[$scope.selectedColourIndex].name = slider.name;
-		$scope.palette = PaletteFactory.editPalette($scope.palette, $scope.defaultPalette, rgb, $scope.selectedColourIndex);
-	}
-
-	function modifyOpacity(slider){
 		$scope.palette[$scope.selectedColourIndex].opacity = slider.opacity;
+		$scope.palette = PaletteFactory.editPalette($scope.palette, $scope.defaultPalette, rgb, $scope.selectedColourIndex);
 	}
 
 	function duplicateColour(){
@@ -91,7 +88,6 @@ EVENT BINDERS
 
 	$scope.selectColour = selectColour;
 	$scope.modifyColour = modifyColour;
-	$scope.modifyOpacity = modifyOpacity;
 	$scope.duplicateColour = duplicateColour;
 	$scope.getPalette = getPalette;
 	$scope.savePalette = savePalette;
