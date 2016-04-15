@@ -13,7 +13,7 @@ ObjectManipulatorFactory.factory('ObjectManipulatorFactory', [function(){
 		return arrayOfObjects;
 	}
 
-	function arrayStringElementsToInteger(array){
+	function arrayStringElementsToIntegers(array){
 		for(var i = 0; i < array.length; i++){
 			array[i] = parseInt(array[i]);
 		}
@@ -23,7 +23,7 @@ ObjectManipulatorFactory.factory('ObjectManipulatorFactory', [function(){
 
 	return {
 		setKeyToTrue: setKeyToTrue,
-		arrayStringElementsToInteger: arrayStringElementsToInteger
+		arrayStringElementsToIntegers: arrayStringElementsToIntegers
 	}
 
 }])

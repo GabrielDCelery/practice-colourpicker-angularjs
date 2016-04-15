@@ -49,7 +49,7 @@ COLOUR PALETTE MODIFIER FUNCTIONS
 	}
 
 	function editColour(slider){
-		slider.rgb = ObjectManipulatorFactory.arrayStringElementsToInteger(slider.rgb);
+		slider.rgb = ObjectManipulatorFactory.arrayStringElementsToIntegers(slider.rgb);
 		$scope.palette = PaletteFactory.editPalette($scope.palette, $scope.selectedColourIndex, slider);
 	}
 
@@ -130,7 +130,7 @@ ObjectManipulatorFactory.factory('ObjectManipulatorFactory', [function(){
 		return arrayOfObjects;
 	}
 
-	function arrayStringElementsToInteger(array){
+	function arrayStringElementsToIntegers(array){
 		for(var i = 0; i < array.length; i++){
 			array[i] = parseInt(array[i]);
 		}
@@ -140,7 +140,7 @@ ObjectManipulatorFactory.factory('ObjectManipulatorFactory', [function(){
 
 	return {
 		setKeyToTrue: setKeyToTrue,
-		arrayStringElementsToInteger: arrayStringElementsToInteger
+		arrayStringElementsToIntegers: arrayStringElementsToIntegers
 	}
 
 }])

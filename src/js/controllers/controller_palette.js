@@ -43,7 +43,7 @@ COLOUR PALETTE MODIFIER FUNCTIONS
 	}
 
 	function editColour(slider){
-		slider.rgb = ObjectManipulatorFactory.arrayStringElementsToInteger(slider.rgb);
+		slider.rgb = ObjectManipulatorFactory.arrayStringElementsToIntegers(slider.rgb);
 		$scope.palette = PaletteFactory.editPalette($scope.palette, $scope.selectedColourIndex, slider);
 	}
 
