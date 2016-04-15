@@ -48,7 +48,7 @@ COLOUR PALETTE MODIFIER FUNCTIONS
 	}
 
 	function modifyColour(rgb){
-		$scope.palette = angular.copy(PaletteFactory.editPalette($scope.palette, $scope.defaultPalette, rgb, $scope.selectedPaletteElement));
+		$scope.palette = PaletteFactory.editPalette($scope.palette, $scope.defaultPalette, rgb, $scope.selectedPaletteElement);
 	}
 
 	function modifyOpacity(opacity){
@@ -58,8 +58,8 @@ COLOUR PALETTE MODIFIER FUNCTIONS
 	function duplicateColour(){
 		var newColourScheme = angular.copy($scope.palette[$scope.selectedPaletteElement]);
 		$scope.palette.unshift(newColourScheme);
-		$scope.selectedPaletteElement = 0;
 		$scope.palette = ObjectManipulatorFactory.setKeyToTrue($scope.palette, 'selected', $scope.selectedPaletteElement);
+		setSliders($scope.palette[0].rgb, $scope.palette[0].opacity, 0);
 		document.body.scrollTop = 0;
 	}
 
