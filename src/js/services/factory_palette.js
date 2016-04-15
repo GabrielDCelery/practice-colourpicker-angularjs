@@ -26,22 +26,22 @@ PaletteFactory.factory('PaletteFactory', [function(){
 		return modifiedRbgColour;
 	}
 
-	function createPalette(arrayOfPalette){
+	function createPalette(palette){
 		var convertedPalette = [];
 
-		for(var i = 0; i < arrayOfPalette.length; i++){
+		for(var i = 0; i < palette.length; i++){
 			var paletteElement = {};
-			paletteElement.name = arrayOfPalette[i].name;
-			paletteElement.rgb = arrayOfPalette[i].baseColour;
-			paletteElement.hex = rgbToHex(arrayOfPalette[i].baseColour);
+			paletteElement.name = palette[i].name;
+			paletteElement.rgb = palette[i].baseColour;
+			paletteElement.hex = rgbToHex(palette[i].baseColour);
 			paletteElement.opacity = 1;
 			paletteElement.tints = [];
 			paletteElement.selected = false;
-			for(var j = 0; j < arrayOfPalette[i].tints.length; j++){
+			for(var j = 0; j < palette[i].tints.length; j++){
 				var tint = {};
-				tint.rgb = tintCalculator(arrayOfPalette[i].baseColour, arrayOfPalette[i].tints[j]);
+				tint.rgb = tintCalculator(palette[i].baseColour, palette[i].tints[j]);
 				tint.hex = rgbToHex(tint.rgb);
-				tint.tint = arrayOfPalette[i].tints[j];
+				tint.tint = palette[i].tints[j];
 				paletteElement.tints.push(tint);
 			}
 			convertedPalette.push(paletteElement);
@@ -63,16 +63,16 @@ PaletteFactory.factory('PaletteFactory', [function(){
 		return palette;
 	}
 
-	function createExportable(arrayOfPalette){
+	function createExportable(palette){
 		var convertedPalette = [];
 
-		for(var i = 0; i < arrayOfPalette.length; i++){
+		for(var i = 0; i < palette.length; i++){
 			var paletteElement = {};
-			paletteElement.name = arrayOfPalette[i].name;
-			paletteElement.baseColour = arrayOfPalette[i].rgb;
+			paletteElement.name = palette[i].name;
+			paletteElement.baseColour = palette[i].rgb;
 			paletteElement.tints = [];
-			for(var j = 0; j < arrayOfPalette[i].tints.length;j++){
-				paletteElement.tints.push(arrayOfPalette[i].tints[j].tint);
+			for(var j = 0; j < palette[i].tints.length;j++){
+				paletteElement.tints.push(palette[i].tints[j].tint);
 			}
 			convertedPalette.push(paletteElement);
 		}
