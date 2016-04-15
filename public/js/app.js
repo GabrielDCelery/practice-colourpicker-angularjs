@@ -201,7 +201,6 @@ PaletteFactory.factory('PaletteFactory', [function(){
 		palette[index].rgb = slider.rgb;
 		palette[index].hex = rgbToHex(slider.rgb);
 		palette[index].opacity = slider.opacity;
-		var tints = palette[index].tints;
 		for(var i = 0; i < palette[index].tints.length; i++){
 			var modifiedTint = tintCalculator(palette[index].rgb, palette[index].tints[i].tint);
 			palette[index].tints[i].rgb = modifiedTint;
