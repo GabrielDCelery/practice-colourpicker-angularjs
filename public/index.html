@@ -26,10 +26,10 @@
 						<p>{{colour.hex}}</p>
 					</div>
 				</div>
-				<div class="colourBox" ng-click="setSliders(colour.rgb, colour.opacity, $index)">
+				<div class="colourBox" ng-click="setSliders(palette, $index)">
 					<div class="baseColour" ng-style="{'background-color': 'rgba(' + colour.rgb[0] + ', ' + colour.rgb[1] + ',' + colour.rgb[2] + ',' + colour.opacity + ')'}"></div>
 				</div>
-				<div class="colourBox" ng-click="setSliders(colour.rgb, colour.opacity, $index)">
+				<div class="colourBox" ng-click="setSliders(palette, $index)">
 					<div class="tintColours" ng-repeat="tint in colour.tints">
 						<div class="tintColour" ng-style="{'background-color': 'rgba(' + tint.rgb[0] + ', ' + tint.rgb[1] + ',' + tint.rgb[2] + ',' + colour.opacity + ')'}"></div>
 					</div>
@@ -46,18 +46,22 @@
 
 	<footer>
 		<div class="colourAdjuster">
+			<p>NAME</p>
+			<input type="textbox" ng-model="slider.name" ng-change="modifyColour(slider)"></input>
+		</div>
+		<div class="colourAdjuster">
 			<p>R</p>
-			<input type="range" min="0" max="255" ng-model="slider.rgb[0]" ng-change="modifyColour(slider.rgb)"></input>
+			<input type="range" min="0" max="255" ng-model="slider.rgb[0]" ng-change="modifyColour(slider)"></input>
 			<input type="textbox" ng-model="slider.rgb[0]" ng-change="modifyColour(slider.rgb)"></input>
 		</div>
 		<div class="colourAdjuster">
 			<p>G</p>
-			<input type="range" min="0" max="255" ng-model="slider.rgb[1]" ng-change="modifyColour(slider.rgb)"></input>
+			<input type="range" min="0" max="255" ng-model="slider.rgb[1]" ng-change="modifyColour(slider)"></input>
 			<input type="textbox" ng-model="slider.rgb[1]" ng-change="modifyColour(slider.rgb)"></input>
 		</div>
 		<div class="colourAdjuster">
 			<p>B</p>
-			<input type="range" min="0" max="255" ng-model="slider.rgb[2]" ng-change="modifyColour(slider.rgb)"></input>
+			<input type="range" min="0" max="255" ng-model="slider.rgb[2]" ng-change="modifyColour(slider)"></input>
 			<input type="textbox" ng-model="slider.rgb[2]" ng-change="modifyColour(slider.rgb)"></input>
 		</div>
 		<div class="colourAdjuster">
