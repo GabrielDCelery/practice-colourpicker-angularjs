@@ -10,4 +10,4 @@ ApiFactory.factory('ApiFactory', ['$http', function($http){
 		getPalette: getPalette
 	}
 
-}])
+}]);
